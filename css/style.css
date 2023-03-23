@@ -1,560 +1,576 @@
 @charset "utf-8";
 
 
-/*style-opening.cssの読み込み*/
-@import url(style-opening.css);
 
 
-/*全端末（PC・タブレット・スマホ）共通設定
-------------------------------------------------------------------------------------------------------------------------------------------------------*/
+/*リセットCSS（sanitize.css）の読み込み
+---------------------------------------------------------------------------*/
+@import url("https://unpkg.com/sanitize.css");
+
+/*lightbox.cssの読み込み
+---------------------------------------------------------------------------*/
+@import url(https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.10.0/css/lightbox.css);
+
+/*Font Awesomeの読み込み
+---------------------------------------------------------------------------*/
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+
+/*Google Fontsの読み込み
+---------------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Qwitcher+Grypen&display=swap');
+
+/*テンプレート専用cssファイルの読み込み
+---------------------------------------------------------------------------*/
+@import url("animation.css");
+
+
+
 
 /*全体の設定
 ---------------------------------------------------------------------------*/
-body,html {width: 100%;height: 100%;}
-body {
-	margin: 0px;
-	padding: 0px;
-	color: #666;	/*全体の文字色*/
-	font-family: "ヒラギノ丸ゴ Pro", "Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	/*フォント種類*/
-	font-size: 13px;	/*文字サイズ*/
-	line-height: 2;		/*行間*/
-	background: #7c160a;	/*背景色*/
-	-webkit-text-size-adjust: none;
+html,body {
+	margin: 0;padding: 0;
+	height: 100vh;
+	font-size: 14px;	/*基準となるフォントサイズ。下の方にある「画面幅900px以上」で基準を大きなサイズに再設定しています。*/
 }
-h1,h2,h3,h4,h5,p,ul,ol,li,dl,dt,dd,form,figure,form {margin: 0px;padding: 0px;font-size: 100%;font-weight: normal;}
-ul {list-style-type: none;}
-ol {padding-left: 40px;padding-bottom: 15px;}
+
+body {
+	font-family: "ヒラギノ丸ゴ Pro", "Hiragino Maru Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	/*フォント種類*/
+	-webkit-text-size-adjust: none;
+	background: #fff url(../images/bg.jpg) repeat center center/200px;
+	color: #57524b;		/*全体の文字色*/
+	line-height: 2;		/*行間*/
+}
+
+/*リセット*/
+figure {margin: 0;}
+dd {margin: 0;}
+nav {margin: 0;padding: 0;}
+
+/*table全般の設定*/
+table {border-collapse:collapse;}
+
+/*画像全般の設定*/
 img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
-table {border-collapse:collapse;font-size: 100%;border-spacing: 0;}
+
+/*videoタグ*/
+video {max-width: 100%;}
+
+/*iframeタグ*/
 iframe {width: 100%;}
 
-/*リンク（全般）設定
+/*ul,olタグ*/
+ul, ol {margin-bottom: 30px;}
+
+
+/*リンクテキスト全般の設定
 ---------------------------------------------------------------------------*/
 a {
-	color: #666;		/*リンクテキストの色*/
-	transition: 0.4s;	/*マウスオン時の移り変わるまでの時間設定。0.4秒。*/
-}
-a:hover {
-	color: #f16400;			/*マウスオン時の文字色*/
-	text-decoration: none;	/*マウスオン時に下線を消す設定。残したいならこの１行削除。*/
+	color: #57524b;	/*文字色*/
+	transition: 0.3s;
 }
 
-/*header
+a:hover {
+	opacity: 0.8;	/*マウスオン時に60%の透明度にする*/
+}
+
+
+/*メインイメージ（bg_sub.pngとbg_main.jpgを読み込んでいます）
+---------------------------------------------------------------------------*/
+#mainimg {
+	text-indent: -9999px;
+	position: fixed;top: 0px;z-index: -1;
+	width: 100%;
+	height: 100%;
+	background: url(../images/bg_sub.png) no-repeat left top / 100%, url(../images/bg_main.jpg) no-repeat right center / cover;
+}
+
+
+/*ヘッダー
 ---------------------------------------------------------------------------*/
 /*ヘッダーブロック*/
 header {
-	text-align: center;	/*内容をセンタリング*/
-	position: fixed;	/*スクロールしても固定表示する指定*/
-	z-index: 10;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 100px;
-	background: #333;	/*背景色（古いブラウザ用）*/
-	background: rgba(0,0,0,0.7);	/*背景色。0,0,0は黒の事で、0.7は色が70%ついた状態の事。*/
+	height: 100%;	/*高さ*/
 }
+
 /*ロゴ画像*/
 header #logo img {
-	width: 250px;		/*画像の幅*/
-	margin-top: 15px;	/*上に空けるスペース*/
+	width: 120px;		/*幅*/
+	position: fixed;	/*画面に対して固定表示*/
+	left: -10px;		/*ウィンドウに対して左からの配置場所*/
+	top: -5px;			/*ウィンドウに対して上からの配置場所*/
+	background: rgba(148,152,82,0.5);	/*RGBで指定した背景色。最後の0.5は色が50%出た状態のこと。*/
+	border-radius: 50%;	/*角丸のサイズ。中の画像が正方形であれば円形になります。*/
 }
 
-/*headerアイコン（facebookやtwitterなどのアイコンブロック）
----------------------------------------------------------------------------*/
-/*アイコンを囲むブロック全体の設定*/
-header .icon {
-	position: absolute;
-	right: 3%;		/*ヘッダーブロックに対して右から3%の場所に配置*/
-	bottom: 15px;	/*ヘッダーブロックに対して下から15pxの場所に配置*/
-}
-/*アイコン１個あたりの設定*/
-header .icon li {
-	display: inline;	/*横並びにさせる指定*/
-}
-/*アイコン画像の設定*/
-header .icon img {
-	width: 30px;		/*画像の幅*/
-	margin-left: 5px;	/*画像同士の余白*/
-}
 
-/*メニュー
+/*メインメニュー
 ---------------------------------------------------------------------------*/
-/*メニュー全体を囲むブロック*/
-#menubar {
-	position: relative;
-	text-align: center;		/*文字をセンタリング*/
-	font-size: 13px;		/*文字サイズ*/
-	margin-top: 15px;		/*上に空けるスペース*/
-}
 /*メニュー１個あたりの設定*/
 #menubar li {
-	display: inline;	/*横並びにする設定*/
+	display: inline-block;
+	transition: 0.5s;
+	border-radius: 50%;			/*円形にする*/
+	animation: opa1 1.5s both;	/*animation.cssの、opa1を実行する。1.5sは1.5秒の事。*/
+	text-align: center;
+	font-size: 1.5em;	/*文字サイズ*/
+	position: fixed;	/*画面に対して固定表示*/
 }
 #menubar li a {
-	text-decoration: none;
-	color: #fff;	/*文字色*/
-	padding: 0px 10px 5px 13px;	/*上、右、下、左へのメニュー内の余白*/
-	letter-spacing: 0.2em;		/*文字間隔*/
-	margin: 0 10px;				/*上下、左右へのメニューの外側の余白*/
-}
-/*マウスオン時の設定*/
-#menubar li a:hover {
-	border-bottom: 3px solid #fff;	/*下線の幅、線種、色*/
-}
-/*スマホ用メニューを表示させない*/
-#menubar-s {display: none;}
-/*３本バーアイコンを表示させない*/
-#menubar_hdr {display: none;}
-
-/*inner
----------------------------------------------------------------------------*/
-.inner {
-	background: #fff;	/*背景色*/
-	width: 80%;				/*幅*/
-	margin: 0 auto 40px;	/*上、左右、下へのボックスの外側の余白。左右にautoを指定すると中央配置になる。*/
-	padding: 30px;			/*ボックス内の余白*/
-	border-radius: 20px;	/*角丸のサイズ。この行削除すれば角が尖った通常の四角形になります。*/
-}
-/*１つ目のブロック*/
-.first {
-	margin-top: 140px !important;	/*headerのheightの数字（100px）と、.innerのmarginの３つ目の数字（40px）を足した数にする。*/
+	display: block;text-decoration: none;
+	color: #fff;		/*文字色*/
 }
 
-/*contents
+/*４つ目(Instagram)を除き、以下のGoogle Fontsを使う。*/
+#menubar li:not(:nth-of-type(4)) {
+	font-family: 'Qwitcher Grypen', cursive;
+}
+
+/*マウスオン時*/
+#menubar li:hover {
+	transform: scale(1.05);		/*105%に拡大*/
+	filter: brightness(1.1);	/*少しだけ明るくする*/
+}
+
+/*１つ目のメニュー(About)*/
+#menubar li:nth-of-type(1) {
+	left: 1%;			/*ウィンドウに対して左からの配置場所*/
+	top: 25%;			/*ウィンドウに対して上からの配置場所*/
+	animation-delay: 0.2s;	/*0.2秒だけ遅れてアニメーションをスタートさせる設定*/
+	background: rgba(184,122,56,0.5);	/*RGBでの背景色指定。最後の0.5は色が50%出た状態のこと。*/
+	width: 100px;		/*幅*/
+	line-height: 100px;	/*高さ*/
+}
+
+/*２つ目のメニュー(Gallery)*/
+#menubar li:nth-of-type(2) {
+	left: 5%;			/*ウィンドウに対して左からの配置場所*/
+	top: 45%;			/*ウィンドウに対して上からの配置場所*/
+	animation-delay: 0.4s;	/*0.4秒だけ遅れてアニメーションをスタートさせる設定*/
+	background: rgba(205,96,82,0.5);	/*RGBでの背景色指定。最後の0.5は色が50%出た状態のこと。*/
+	width: 110px;		/*幅*/
+	line-height: 110px;	/*高さ*/
+}
+
+/*３つ目のメニュー(Link)*/
+#menubar li:nth-of-type(3) {
+	left: 1%;			/*ウィンドウに対して左からの配置場所*/
+	top: 65%;			/*ウィンドウに対して上からの配置場所*/
+	animation-delay: 0.6s;	/*0.6秒だけ遅れてアニメーションをスタートさせる設定*/
+	background: rgba(125,101,87,0.5);	/*RGBでの背景色指定。最後の0.5は色が50%出た状態のこと。*/
+	width: 80px;		/*幅*/
+	line-height: 80px;	/*高さ*/
+}
+
+/*４つ目のメニュー(Instagram)*/
+#menubar li:nth-of-type(4) {
+	left: 8%;			/*ウィンドウに対して左からの配置場所*/
+	top: 85%;			/*ウィンドウに対して上からの配置場所*/
+	animation-delay: 0.8s;	/*0.8秒だけ遅れてアニメーションをスタートさせる設定*/
+	background: rgba(138,158,156,0.5);	/*RGBでの背景色指定。最後の0.5は色が50%出た状態のこと。*/
+	width: 70px;		/*幅*/
+	line-height: 70px;	/*高さ*/
+}
+
+
+/*コンテンツ
 ---------------------------------------------------------------------------*/
-/*アニメーション設定------------------------*/
-@keyframes contents {
-/*0コマ目*/
-0% {
-	opacity: 0;
-	top: 10px;
+/*コンテンツ共通*/
+.contents {
+	overflow: hidden;
+	padding: 0 4% 50px 90px;	/*ボックス内の余白。上、右、下、左。*/
 }
-/*100コマ目*/
-100% {
-	opacity: 1;
-	top: 0px;
-}
-}
-/*contentsブロック*/
-#contents {
-	animation-duration: 0.5S;	/*アニメーションの実行時間。秒。*/
-	animation-fill-mode: both;	/*アニメーションの待機中は最初のキーフレームを、完了後は最後のキーフレームを維持する*/
-	animation-name: contents;	/*上のアニメーション設定で使っているkeyframesの名前。contents。*/
-	animation-delay: 0.5s;		/*アニメーションを遅れて開始させる指定。0.5sは0.5秒の事。*/
-	position: relative;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-}
-/*トップページのcontentsブロック*/
-.home #contents {
-	animation-delay: 5.5s;	/*アニメーションを遅れて開始させる指定の上書き。5.5sは5.5秒の事。アニメーションが終了した後、contentsを出力するまでの待機時間。*/
-}
+
+
+/*main
+---------------------------------------------------------------------------*/
 /*h2見出し*/
-#contents h2 {
-	clear: both;
-	margin-bottom: 20px;	/*下に空けるスペース*/
-	font-size: 30px;		/*文字サイズ*/
+main h2 {
+	font-size: 2em;			/*文字サイズ*/
+	margin-bottom: 20px;	/*下に空ける余白*/
 	text-align: center;		/*文字をセンタリング*/
-	letter-spacing: 0.2em;	/*文字間隔を少し広くとる設定*/
-	line-height: 1.5;		/*行間をデフォルトから少し狭くする*/
-	background: url(../images/bg_line1.png) repeat-x center bottom / auto 3px;	/*下線の背景画像の読み込み。X軸(横)にリピート、左右中央、下部に配置。幅はauto(自動)で高さを3pxにする。*/
-	padding-bottom: 10px;
-}
-/*h3見出し*/
-#contents h3 {
-	clear: both;
-	margin-bottom: 10px;	/*下に空けるスペース*/
-	font-size: 20px;		/*文字サイズ*/
-	padding: 0 10px;		/*上下、左右へのブロック内の余白*/
-}
-/*段落タグ*/
-#contents p {
-	padding: 0px 10px 20px;		/*上、左右、下への余白*/
-}
-/*段落タグが続いた場合の設定*/
-#contents p + p {
-	margin-top: -10px;
+	letter-spacing: 0.2em;	/*文字間隔を広くとる設定*/
 }
 
-/*footerブロック
----------------------------------------------------------------------------*/
-footer {
-	clear: both;
-	text-align: center;	/*センタリング*/
-	padding-bottom: 30px;
-	color: #fff;	/*文字色*/
+/*h2見出しの上の装飾*/
+main h2::before {
+	content: "＊";	/*好きな装飾文字に変えてもらって構いませんが機種依存文字は化けるので使わない*/
+	display: block;
+	text-shadow: 20px 10px 0px rgba(255,255,255,0.5);	/*影。右に、下に、ぼかし幅。255,255,255は白の事で0.5は色が50%出た状態の事。*/
 }
-footer a {text-decoration: none;color: #fff;}
-footer a:hover {color: #fff;}
+
+/*h2見出し内のspanタグ*/
+main h2 span {
+	display: block;
+	font-size: 0.7em;	/*文字サイズ*/
+}
+
+/*h3見出し*/
+main h3 {
+	margin-bottom: 20px;	/*下に空ける余白*/
+	letter-spacing: 0.1em;	/*文字間隔を広くとる設定*/
+	background: #fff;		/*背景色（古いブラウザ用）*/
+	background: rgba(255,255,255,0.3);	/*255,255,255は白の事で0.3は色が30%出た状態の事。*/
+	text-align: center;		/*文字を中央に*/
+	border-radius: 30px;	/*角丸のサイズ。大きめに設定しておけばOK。*/
+	padding: 0px 20px;		/*上下、左右への余白*/
+}
+
+/*段落タグ*/
+main p {
+	padding: 0 30px 30px;		/*上、左右、下への余白*/
+}
+
+/*bg1スタイルのついたコンテンツ*/
+.bg1 {
+	background: url(../images/bg1.jpg) repeat center top/ 200px;	/*背景画像*/
+}
+
+/*bg2スタイルのついたコンテンツ*/
+.bg2 {
+	background: url(../images/bg2.jpg) repeat center top/ 200px;	/*背景画像*/
+}
+
+/*bg3スタイルのついたコンテンツ*/
+.bg3 {
+	background: url(../images/bg3.jpg) repeat center top/ 200px;	/*背景画像*/
+}
+
+/*bg4スタイルのついたコンテンツ*/
+.bg4 {
+	background: url(../images/bg4.jpg) repeat center top/ 200px;	/*背景画像*/
+}
+
+
+/*Galleryブロック
+---------------------------------------------------------------------------*/
+/*listボックスを囲むボックス*/
+.list-container {
+	display: flex;					/*flexボックスを使う指定*/
+	flex-wrap: wrap;				/*折り返す指定*/
+	justify-content: space-between;	/*並びかたの種類の指定*/
+}
+
+/*listボックス。１個あたりのボックスの指定です。*/
+.list-container .list {
+	display: flex;					/*flexボックスを使う指定*/
+	flex-direction: column;			/*子要素を縦並びにする*/
+	justify-content: space-between;	/*並びかたの種類の指定*/
+	margin-bottom: 30px;			/*ボックス同士の上下間の余白*/
+	border-radius: 10px;			/*角丸のサイズ。中の画像が正方形であれば、10pxを50%にすることで円形にすることもできます。*/
+	overflow: hidden;
+	width: 22%;						/*幅。１行に何個配置したいか、ここの数値を変更してお好みで調整して下さい。*/
+}
+
+
+/*「お知らせ」ブロック
+---------------------------------------------------------------------------*/
+/*お知らせブロック*/
+#new {
+	padding: 0 20px;	/*上下、左右へのボックス内の余白*/
+}
+/*日付の横のマーク（共通設定）*/
+#new dt span {
+	display: none;	/*小さな端末では非表示にしておく。*/
+}
+
+
+/*フッター設定
+---------------------------------------------------------------------------*/
+footer small {font-size: 100%;}
+
+footer {
+	font-size: 0.6em;		/*文字サイズ*/
+	text-align: center;		/*内容をセンタリング*/
+	padding: 20px;			/*ボックス内の余白*/
+}
+
+/*リンクテキスト*/
+footer a {text-decoration: none;}
+
+/*著作部分*/
 footer .pr {display: block;}
 
-/*「更新情報・お知らせ」ブロック
----------------------------------------------------------------------------*/
-/*見出しを含まないお知らせブロック*/
-#new dl {
-	padding: 0 10px;	/*上下、左右へのボックス内の余白*/
-}
-/*日付設定*/
-#new dt {
-	float: left;	/*左に回り込み*/
-	width: 9em;		/*幅*/
-	letter-spacing: 0.1em;	/*文字間隔を少しだけ広くとる設定*/
-}
-/*記事設定*/
-#new dd {
-	padding-left: 9em;	/*左に空ける余白*/
-}
-
-/*galleryページの画像切り替え
----------------------------------------------------------------------------*/
-/*大きな画像のボックスと説明文を入れるボックス*/
-#item-image {
-	position: relative;
-	margin: 0 auto;
-	width: 80%;			/*画像の幅*/
-	max-width: 1000px;	/*画像の最大幅。これ以上広がらない指定です。ウィンドウに対して常に80%のまま表示したいならこの１行削除。*/
-	margin-bottom: -50px;	/*サムネイル画像を上にずらす指定があるので、その分の変な余白が出ないよう適当に調整。*/
-}
-/*大きな画像の１行目*/
-#item-image #item_image1 {
-	z-index:2;position:relative;overflow:hidden;width: 100%;
-}
-/*大きな画像の２行目*/
-#item-image #item_image2 {
-	z-index:1;position:absolute;overflow:hidden;width: 100%;left:0px;top:0px;
-}
-/*サムネイル画像を囲むブロック*/
-#thumbnail-box {
-	text-align: center;
-	z-index: 3;
-	position: relative;
-	bottom: 70px;	/*配置場所。上の#item-imageのmargin-bottomの数字の影響を受けます。適当に調整してみて下さい。*/
-}
-/*サムネイル画像*/
-.thumbnail {
-	width: 70px;	/*画像の幅*/
-	height: 50px;	/*画像の高さ*/
-	border: 1px solid #ccc;	/*枠線の幅、線種、色*/
-	padding: 5px;		/*余白*/
-	background: #fff;	/*余白部分の色*/
-	margin: 2px 0px;	/*上下、左右へのサムネイルの外にとるスペース*/
-}
-.thumbnail:hover {
-	border: 1px solid #000;	/*マウスオン時の枠線の幅、線種、色*/
-}
-/*説明文*/
-#imgcaption {
-	text-align: center;	/*文字をセンタリング*/
-}
 
 /*テーブル
 ---------------------------------------------------------------------------*/
 /*テーブル１行目に入った見出し部分（※caption）*/
 .ta1 caption {
-	border: 1px solid #999;	/*テーブルの枠線の幅、線種、色*/
-	border-bottom: none;	/*下線だけ消す*/
-	text-align: left;		/*文字を左寄せ*/
 	font-weight: bold;		/*太字に*/
-	padding: 10px;			/*ボックス内の余白*/
-	background: #fff;		/*背景色*/
+	padding: 10px 5px;		/*上下、左右へのボックス内の余白。基本的に数行下の「.ta1 th, .ta1 td」のpaddingと揃えておけばOKです。*/
+	background: rgba(255,255,255,0.2);
+	margin-bottom: 15px;
+	border-radius: 5px;
 }
-/*テーブルの見出し（※tamidashi）*/
-.ta1 th.tamidashi {
-	width: auto;
-	text-align: left;	/*左よせ*/
-	background: #fff;	/*背景色*/
-}
-/*ta1設定*/
+
+/*ta1テーブルブロック設定*/
 .ta1 {
-	table-layout: fixed;
+	border-top: 1px solid rgba(255,255,255,0.5);	/*テーブルの一番上の線。幅、線種、色*/
 	width: 100%;
-	margin: 0 auto 30px;
+	margin: 0 auto 30px;		/*最後の「30px」がテーブルの下に空けるスペースです*/
 }
-.ta1, .ta1 td, .ta1 th {
-	word-break: break-all;
-	border: 1px solid #999;	/*テーブルの枠線の幅、線種、色*/
-	padding: 10px;	/*ボックス内の余白*/
+
+/*tr（１行分）タグ設定*/
+.ta1 tr {
+	border-bottom: 1px solid rgba(255,255,255,0.5);	/*テーブルの下線。幅、線種、色*/
 }
-/*ta1の左側ボックス*/
+
+/*th（左側）、td（右側）の共通設定*/
+.ta1 th, .ta1 td {
+	padding: 10px 5px;		/*上下、左右へのボックス内の余白*。基本的に数行上の「.ta1 caption」のpaddingと揃えておけばOKです。*/
+	word-break: break-all;	/*英語などのテキストを改行で自動的に折り返す設定。これがないと、テーブルを突き抜けて表示される場合があります。*/
+}
+
+/*th（左側）のみの設定*/
 .ta1 th {
-	width: 140px;		/*幅*/
-	text-align: center;	/*センタリング*/
+	width: 30%;			/*幅*/
+	text-align: left;	/*左よせにする*/
 }
+
 
 /*PAGE TOP（↑）設定
 ---------------------------------------------------------------------------*/
-/*アニメーションのキーフレーム設定（変更不要）*/
-@keyframes scroll {
-0% {opacity: 0;}
-100% {opacity: 1;}
-}
-/*デフォルトでは非表示に*/
-body .nav-fix-pos-pagetop a {display: none;}
+.pagetop-show {display: block;}
+
 /*ボタンの設定*/
-body.is-fixed-pagetop .nav-fix-pos-pagetop a {
-	display: block;text-decoration: none;text-align: center;z-index: 100;position: fixed;
-	width: 50px;		/*幅*/
-	line-height: 50px;	/*高さ*/
-	bottom: 50px;		/*下から50pxの場所に配置*/
-	right: 1%;			/*右から1%の場所に配置*/
-	background: #000;	/*背景色（古いブラウザ用）*/
-	background: rgba(0,0,0,0.6);	/*背景色。0,0,0は黒の事で0.6は透明度60%の事。*/
+.pagetop a {
+	display: block;text-decoration: none;text-align: center;
+	position: fixed;	/*スクロールに追従しない(固定で表示)為の設定*/
+	z-index: 99;
+	right: 20px;		/*右からの配置場所指定*/
+	bottom: 20px;		/*下からの配置場所指定*/
 	color: #fff;		/*文字色*/
-	border-radius: 50%;		/*円形にする指定。この行削除すれば正方形になります。*/
-	border: 1px solid #fff;	/*枠線の幅、線種、色*/
-	animation-name: scroll;	/*上のアニメーションで指定しているkeyframesの名前（scroll）*/
-	animation-duration: 1S;	/*アニメーションの実行時間*/
-	animation-fill-mode: forwards;	/*アニメーションの完了後、最後のキーフレームを維持する*/
-}
-/*マウスオン時*/
-body.is-fixed-pagetop .nav-fix-pos-pagetop a:hover {
-	background: #999;	/*背景色*/
+	font-size: 1.5em;	/*文字サイズ*/
+	background: rgba(0,0,0,0.2);	/*背景色。0,0,0は黒の事で0.2は色が20%出た状態。*/
+	width: 60px;		/*幅*/
+	line-height: 60px;	/*高さ*/
+	border-radius: 50%;	/*円形にする*/
 }
 
-/*トップページのNEWアイコン
----------------------------------------------------------------------------*/
-.newicon {
-	background: #F00;	/*背景色*/
-	color: #FFF;		/*文字色*/
-	font-size: 70%;		/*文字サイズ*/
-	line-height: 1.5;
-	padding: 2px 5px;
-	border-radius: 2px;
-	margin: 0px 5px;
-	vertical-align: text-top;
-}
-
-/*ul.disc,olタグ
----------------------------------------------------------------------------*/
-ul.disc {
-	list-style: disc;
-	padding: 0 20px 20px 42px;
-}
-ol {
-	padding: 0 20px 20px 45px;
-}
 
 /*その他
 ---------------------------------------------------------------------------*/
-.look {background: #c3b5a2;background: rgba(0,0,0,0.1);padding: 5px 10px;border-radius: 4px;}
-.mb15,.mb1em {margin-bottom: 15px !important;}
+.clearfix::after {content: "";display: block;clear: both;}
+.color-theme, .color-theme a {color: #74791b !important;}
+.color-check, .color-check a {color: #f00 !important;}
+.c {text-align: center !important;}
+.ws {width: 95%;display: block;}
+.wl {width: 95%;display: block;}
 .mb30 {margin-bottom: 30px !important;}
-.mb50 {margin-bottom: 50px !important;}
-.clear {clear: both;}
-.color1, .color1 a {color: #f16400 !important;}
-.pr {font-size: 10px;}
-.wl {width: 96%;}
-.ws {width: 50%;}
-.c {text-align: center;}
-.r {text-align: right;}
-.l {text-align: left;}
-.fl {float: left;}
-.fr {float: right;}
-.big1 {font-size: 40px;}
-.mini1 {font-size: 11px;display: inline-block;line-height: 1.5;}
-.sh {display: none;}
+.look {display: inline-block;padding: 0px 10px;background: #666; color: #fff; border-radius: 3px;margin: 5px 0;}
+.look .color-check {color: #ffcc00 !important;}
+.small {font-size: 0.6em;}
 
 
 
-/*画面幅800px以下の設定
-------------------------------------------------------------------------------------------------------------------------------------------------------*/
-@media screen and (max-width:800px){
 
-/*headerアイコン（facebookやtwitterなどのアイコンブロック）
+/*---------------------------------------------------------------------------
+ここから下は画面が「縦長」の場合の追加指定
 ---------------------------------------------------------------------------*/
-/*アイコンを囲むブロック全体の設定*/
-header .icon {
-	right: 0%;
-	bottom: 10px;
-	width: 100%;
-}
+@media screen and (orientation: portrait) {
 
-/*メインメニュー
+
+/*メインイメージを縦長向き端末用に準備した画像（bg_main_portrait.jpg）に入れ替える。
 ---------------------------------------------------------------------------*/
-/*アニメーションのフレーム設定。全100コマアニメーションだと思って下さい。
-透明(opacity: 0;)から色をつける(opacity: 1;)までの指定。*/
-@keyframes menubar {
-	0% {opacity: 0;}
-	100% {opacity: 1;}
+#mainimg {
+	background: url(../images/bg_sub.png) no-repeat left top / 100%, url(../images/bg_main_portrait.jpg) no-repeat right bottom / cover;
 }
-/*スマホ用メニューブロック*/
-#menubar-s {
-	display: block;overflow: hidden;
-	position: fixed;z-index: 20;
-	top: 100px;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,0.8);	/*背景色*/
-	animation-name: menubar;		/*上のkeyframesの名前*/
-	animation-duration: 0.5s;		/*アニメーションの実行時間。0.5秒。*/
-	animation-fill-mode: both;		/*待機中は最初のキーフレームを、完了後は最後のキーフレームを維持*/
-	border-top: 1px solid #fff;	/*下の線の幅、線種、色*/
-}
-/*メニュー１個あたりの設定*/
-#menubar-s li a {
-	display: block;text-decoration: none;
-	padding: 14px 3%;	/*メニュー内の余白。上下、左右。*/
-	border-bottom: 1px solid #fff;	/*下の線の幅、線種、色*/
-	color: #fff;		/*文字色*/
-	font-size: 16px;	/*文字サイズ*/
-}
-/*説明表記（飾り文字）*/
-#menubar-s li a span {
-	display: block;
-	font-size: 10px;/*文字サイズ*/
-}
-/*PC用メニューを非表示にする*/
-#menubar {display: none;}
 
-/*３本バーアイコン設定
+
+/*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
+
+}
+
+
+
+
+/*---------------------------------------------------------------------------
+ここから下は画面幅370px以上の追加指定
 ---------------------------------------------------------------------------*/
-/*３本バーブロック*/
-#menubar_hdr {
-	display: block;
-	position: fixed;z-index: 20;
-	top: 5px;	/*上からの配置指定*/
-	right: 1%;		/*ウィンドウの右から1%の場所に配置*/
-}
-/*アイコン共通設定*/
-#menubar_hdr.close,
-#menubar_hdr.open {
-	width: 50px;	/*幅*/
-	height: 50px;	/*高さ*/
-	border-radius: 50%;	/*円形にする指定*/
-}
-/*三本バーアイコン*/
-#menubar_hdr.close {
-	background: #f16400 url(../images/icon_menu.png) no-repeat center top/50px;	/*背景色、背景画像の読み込み、画像の上半分（３本マーク）を表示。幅は50px。*/
-}
-/*閉じるアイコン*/
-#menubar_hdr.open {
-	background: #f16400 url(../images/icon_menu.png) no-repeat center bottom/50px;	/*背景色、背景画像の読み込み、画像の下半分（×マーク）を表示。幅は50px。*/
-}
+@media screen and (min-width:370px) {
 
-/*その他
+
+/*「お知らせ」ブロック
 ---------------------------------------------------------------------------*/
-body.s-n #sub,body.s-n #footermenu,.m-n {display: none;}
-.big1 {font-size: 20px;}
-.fl {float: none;}
-.fr {float: none;}
-.sh {display:block;}
-.pc {display:none;}
+/*お知らせブロック*/
+#new {
+	margin: 0;
+	display: flex;		/*flexボックスを使う指定*/
+	flex-wrap: wrap;	/*折り返す指定*/
+}
+
+/*日付(dt)、記事(dd)共通設定*/
+#new dt,
+#new dd {
+	padding: 5px 0;		/*上下、左右へのボックス内の余白*/
+}
+
+/*日付(dt)設定*/
+#new dt {
+	width: 8em;	/*幅。8文字(em)分。※下の「900px以上」の端末用の設定に再設定があります。*/
+}
+
+/*記事(dd)設定*/
+#new dd {
+	width: calc(100% - 8em);	/*「8em」は上の「#new dt」のwidthの値です。※下の「900px以上」の端末用の設定に再設定があります。*/
+}
+
+
+/*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
 
 }
 
 
-/*画面を横向きにした場合の高さが500px以下の場合の設定。主にスマートフォンを横向きで見た状態。
-------------------------------------------------------------------------------------------------------------------------------------------------------*/
-@media screen and (orientation: landscape) and (max-height:500px){
 
-/*header
-ウィンドウの高さが狭いので、ヘッダーブロックを固定からスクロールさせる動作に切り替えます。
+
+/*---------------------------------------------------------------------------
+ここから下は画面幅900px以下、かつ画面が「横長」の場合の追加指定
 ---------------------------------------------------------------------------*/
-/*ヘッダーブロック*/
-header {
-	position: absolute;
-}
+@media screen and (max-width:900px) and (orientation: landscape) {
 
-/*メインメニュー
-メニューを２列表示に切り替えます。
+
+/*コンテンツ
 ---------------------------------------------------------------------------*/
-/*スマホ用メニューブロック*/
-#menubar-s {
-	top: 0px;
+/*コンテンツ共通*/
+.contents {
+	padding-left: 130px;	/*ボックス内の左側にとる余白*/
 }
-/*メニュー１個あたりの設定*/
-#menubar-s li {
-	width: 50%;
-	float: left;
-}
+
+
+/*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
 
 }
 
 
 
-/*画面幅700px以下の設定
-------------------------------------------------------------------------------------------------------------------------------------------------------*/
-@media screen and (max-width:700px){
 
-/*galleryページの画像切り替え
+/*---------------------------------------------------------------------------
+ここから下は画面幅900px以上の追加指定
 ---------------------------------------------------------------------------*/
-/*大きな画像のボックスと説明文を入れるボックス*/
-#item-image {
-	width: 100%;			/*画像の幅*/
-	margin-bottom: 0px;
-}
-/*サムネイル画像を囲むブロック*/
-#thumbnail-box {
-	bottom: 0px;
-}
-/*サムネイル画像*/
-.thumbnail {
-	width: 40px;	/*画像の幅*/
-	height: 28px;	/*画像の高さ*/
-	padding: 0;		/*余白*/
-}
+@media screen and (min-width:900px) {
 
-}
-
-
-
-/*画面幅480px以下の設定
-------------------------------------------------------------------------------------------------------------------------------------------------------*/
-@media screen and (max-width:480px){
 
 /*全体の設定
 ---------------------------------------------------------------------------*/
-body {
-	font-size: 12px;	/*文字サイズ*/
-	line-height: 1.5;	/*行間*/
+html, body {
+	font-size: 16px;	/*基準となるフォントサイズの上書き*/
 }
 
-/*header
+
+/*ヘッダー
 ---------------------------------------------------------------------------*/
 /*ロゴ画像*/
 header #logo img {
-	width: 170px;		/*画像の幅*/
-	margin-top: 20px;	/*上に空けるスペース*/
+	width: 280px;	/*幅*/
+	left: 5%;		/*ウィンドウに対して左からの配置場所*/
 }
 
-/*inner
+
+/*メインメニュー
 ---------------------------------------------------------------------------*/
-.inner {
-	padding: 20px;			/*ボックス内の余白*/
-	border-radius: 10px;	/*角丸のサイズ*/
+/*メニュー１個あたりの設定*/
+#menubar li {
+	font-size: 2em;		/*文字サイズ*/
 }
 
-/*contents
+/*１つ目のメニュー(About)*/
+#menubar li:nth-of-type(1) {
+	left: 20%;			/*ウィンドウに対して左からの配置場所*/
+	top: 27%;			/*ウィンドウに対して上からの配置場所*/
+	width: 150px;		/*幅*/
+	line-height: 150px;	/*高さ*/
+}
+
+/*２つ目のメニュー(Gallery)*/
+#menubar li:nth-of-type(2) {
+	left: 4%;			/*ウィンドウに対して左からの配置場所*/
+	top: 45%;			/*ウィンドウに対して上からの配置場所*/
+	width: 190px;		/*幅*/
+	line-height: 190px;	/*高さ*/
+}
+
+/*３つ目のメニュー(Link)*/
+#menubar li:nth-of-type(3) {
+	left: 18%;			/*ウィンドウに対して左からの配置場所*/
+	top: 65%;			/*ウィンドウに対して上からの配置場所*/
+	width: 130px;		/*幅*/
+	line-height: 130px;	/*高さ*/
+}
+
+/*４つ目のメニュー(Instagram)*/
+#menubar li:nth-of-type(4) {
+	left: 7%;			/*ウィンドウに対して左からの配置場所*/
+	top: 80%;			/*ウィンドウに対して上からの配置場所*/
+}
+
+
+/*コンテンツ
 ---------------------------------------------------------------------------*/
-/*h2見出し*/
-#contents h2 {
-	font-size: 20px;
-	letter-spacing: normal;
-}
-/*h3見出し*/
-#contents h3 {
-	font-size: 16px;
+/*コンテンツ共通*/
+.contents {
+	padding: 0 4% 50px 35%;	/*ボックス内の余白。上、右、下、左。*/
 }
 
-/*テーブル（ta1）
+
+/*「お知らせ」ブロック
+---------------------------------------------------------------------------*/
+/*日付(dt)設定*/
+#new dt {
+	width: 14em;	/*幅。14文字(em)分。*/
+	display: flex;	/*flexボックスを使う指定*/
+	justify-content: space-between;	/*日付とアイコンをそれぞれ端に寄せる*/
+}
+
+/*日付の横のマーク（共通設定）*/
+#new dt span {
+	display: inline-block;	/*表示させる*/
+	width: 6em;				/*幅。6文字(em)分。*/
+	background: #999;		/*背景色*/
+	color: #fff;			/*文字色*/
+	font-size: 0.9em;		/*文字サイズを90%に。*/
+	text-align: center;		/*文字をセンタリング*/
+	border-radius: 3px;		/*角を少しだけ丸くする*/
+	margin-right: 1.2em;	/*アイコンの右側に空けるスペース*/
+	align-self: flex-start;	/*高さを間延びさせない指定*/
+	line-height: 1.8;		/*行間を少し狭く*/
+	position: relative;top: 0.4em;	/*上下の配置バランスの微調整*/
+}
+
+/*bg1設定。サンプルテンプレートでは「Gallery」と書いてあるマーク*/
+#new dt span.icon-bg1 {
+	background: #74791b;	/*背景色*/
+}
+
+/*記事(dd)設定*/
+#new dd {
+	width: calc(100% - 14em);	/*「14em」は上の「#new dt」のwidthの値です。*/
+}
+
+
+/*テーブル
 ---------------------------------------------------------------------------*/
 /*テーブル１行目に入った見出し部分（※caption）*/
 .ta1 caption {
-	padding: 5px;	/*ボックス内の余白*/
+	padding: 5px 15px;		/*上下、左右へのボックス内の余白*/
 }
-/*ta1設定*/
-.ta1, .ta1 td, .ta1 th {
-	padding: 5px;	/*ボックス内の余白*/
+
+/*th（左側）、td（右側）の共通設定*/
+.ta1 th, .ta1 td {
+	padding: 20px 15px;		/*上下、左右へのボックス内の余白*/
 }
-/*ta1の左側ボックス*/
+
+/*th（左側）のみの設定*/
 .ta1 th {
-	width: 100px;
+	width: 20%;		/*幅*/
 }
+
 
 /*その他
 ---------------------------------------------------------------------------*/
-.ws,.wl {width: 94%;}
-.big1 {font-size: 16px;}
+.ws {width: 48%;display: inline;}
+
+
+/*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
 
 }
+
