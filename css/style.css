@@ -257,7 +257,7 @@ main p {
 	flex-direction: column;			/*子要素を縦並びにする*/
 	justify-content: space-between;	/*並びかたの種類の指定*/
 	margin-bottom: 30px;			/*ボックス同士の上下間の余白*/
-	border-radius: 10px;			/*角丸のサイズ。中の画像が正方形であれば、10pxを50%にすることで円形にすることもできます。*/
+	border-radius: 50%;			/*角丸のサイズ。中の画像が正方形であれば、10pxを50%にすることで円形にすることもできます。*/
 	overflow: hidden;
 	width: 22%;						/*幅。１行に何個配置したいか、ここの数値を変更してお好みで調整して下さい。*/
 }
