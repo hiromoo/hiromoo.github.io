@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hiromoo.kyutable",
+      "sha256_cert_fingerprints": [
+        "4B:63:77:C1:72:3A:DD:AE:21:90:EC:C7:AD:86:83:2D:B6:85:F8:6D:64:BB:3B:BF:92:19:F6:F9:36:1A:D4:E2"
+      ]
+    }
+  }
+]
